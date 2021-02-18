@@ -12,7 +12,7 @@
       }
 
       #recordForm {
-        display: none;
+        display: none; /* Set to block when we want to show form */
       }
 
       #recordIDcontainer {
@@ -84,7 +84,15 @@
       // The main difference from fetchOne() will be the URL you request from; check
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchAll() {
-        // TODO
+        // Blanket block forms, in case of previous create/update request without executing
+        document.getElementById("recordForm").style.display = "none";
+        document.getElementById("recordIDcontainer").style.display = "none";
+
+        // Fire request
+        let url = document.getElementById("endpoint").value;
+
+        // Display results
+        document.getElementById("output").value = "TODO: Display all from: " + url;
       }
 
       // This function should fetch one entry from the given endpoint.
@@ -92,23 +100,83 @@
       // The main difference from fetchAll() will be the URL you request from; check
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchOne() {
-        // TODO
+        // Blanket block forms, in case of previous create/update request without executing
+        document.getElementById("recordForm").style.display = "none";
+        document.getElementById("recordIDcontainer").style.display = "none";
+        // Temporarily clear output
+        document.getElementById("output").value = "";
+
+        // Prompt user for id to display
+        let id = window.prompt("Enter ID to display:", "1");
+        if (id != null) {
+        // Fire request
+        let url = document.getElementById("endpoint").value + "/" + id;
+
+        // Display results
+        document.getElementById("output").value = "TODO: Display ID: " + id;
+        }
       }
 
       // This function should use fetch to create one entry in the given endpoint.
       // From the 4 CRUD actions, this is the CREATE action, and uses the POST http method.
       // The main difference from updateRecord() will be the URL you send data to; check
       // the writeup to view the URL pattern for create and update
-      function createRecord() {
-        // TODO
+      function createRecord(requestType) {
+        if(requestType == "show") {
+          // Blanket block form, in case of previous update request without executing
+          document.getElementById("recordIDcontainer").style.display = "none";
+          // Temporarily clear output
+          document.getElementById("output").value = "";
+          // Clear input fields
+          document.getElementById("author").value = "";
+          document.getElementById("title").value = "";
+          // Display input form
+          document.getElementById("recordForm").style.display = "block";
+        }
+        else {
+          // Hide input form and fire request
+          document.getElementById("recordForm").style.display = "none";
+          
+          // Fire request
+          let url = document.getElementById("endpoint").value;
+          let key = document.getElementById("author").value;
+          let value = document.getElementById("title").value;
+
+          // Display results
+          document.getElementById("output").value = "TODO: Create: " + key + ": " + value + " at " + url;
+        }
       }
 
       // This function should use fetch to update one existing entry in the given endpoint.
       // From the 4 CRUD actions, this is the UPDATE action, and uses the PUT http method.
       // The main difference from createRecord() will be the URL you send data to; check
       // the writeup to view the URL pattern for create and update
-      function updateRecord() {
-        // TODO
+      function updateRecord(requestType) {
+        if(requestType == "show") {
+          // Temporarily clear output
+          document.getElementById("output").value = "";
+          // Clear input fields
+          document.getElementById("author").value = "";
+          document.getElementById("recordID").value = "";
+          document.getElementById("title").value = "";
+          // Display input form
+          document.getElementById("recordForm").style.display = "block";
+          document.getElementById("recordIDcontainer").style.display = "block";
+        }
+        else {
+          // Hide input form and fire request
+          document.getElementById("recordForm").style.display = "none";
+          document.getElementById("recordIDcontainer").style.display = "none";
+          
+          // Fire request
+          let url = document.getElementById("endpoint").value;
+          let key = document.getElementById("author").value;
+          let value = document.getElementById("title").value;
+          let id = document.getElementById("recordID").value;
+
+          // Display results
+          document.getElementById("output").value = "TODO: Update: " + key + ": " + value + " " + id + " at " + url;
+        }
       }
 
       // This function should use fetch to delete one existing entry in the given endpoint.
@@ -117,7 +185,21 @@
       // request; check the writeup to view the URL pattern for get one and delete. THERE IS NO 
       // delete all, only delete one.
       function deleteRecord() {
-        // TODO
+        // Blanket block forms, in case of previous create/update request without executing
+        document.getElementById("recordForm").style.display = "none";
+        document.getElementById("recordIDcontainer").style.display = "none";
+        // Temporarily clear output
+        document.getElementById("output").value = "";
+
+        // Prompt user for id to delete
+        let id = window.prompt("Enter ID to delete:", "1");
+        if (id != null) {
+        // Fire request
+        let url = document.getElementById("endpoint").value + "/" + id;
+
+        // Display results
+        document.getElementById("output").value = "TODO: Delete ID: " + id;
+        }
       }
 
       window.addEventListener('DOMContentLoaded', () => {
@@ -167,6 +249,24 @@
                 alert("Error: Illegal Action");
             }
           });
+
+        // // Selector menu Event Listener
+        // document
+        //   .getElementById("action")
+        //   .addEventListener("change", event => {
+        //     let option = document.getElementById('action').value;
+            
+        //     switch (command) {
+        //       case "Create":
+        //         createRecord('submit');
+        //         break;
+        //       case "Update":
+        //         updateRecord('submit');
+        //         break;
+        //       default:
+        //         alert("Error: Illegal Action");
+        //     }
+        //   });
       });
     </script>
   </body>
