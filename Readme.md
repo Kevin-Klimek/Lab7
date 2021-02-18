@@ -1,0 +1,1 @@
+[Published website on GitHub Pages](https://kevin-klimek.github.io/Lab7/index.html)
